@@ -1,0 +1,31 @@
+Metadata-Version: 2.1
+Name: yolov8
+Version: 0.0.1
+Summary: Wrapper for incomming yolov8
+Home-page: UNKNOWN
+Author: 
+License: UNKNOWN
+Keywords: machine-learning,deep-learning,ml,pytorch,YOLO,object-detection,vision,YOLOv3,YOLOv4,YOLOv5,YOLOv6,YOLOv7,YOLOv8
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Education
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Image Recognition
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: yolov5
+Provides-Extra: tests
+Requires-Dist: pytest ; extra == 'tests'
+
+Wrapper for incomming yolov8
+

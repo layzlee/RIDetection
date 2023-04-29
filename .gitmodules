@@ -1,0 +1,3 @@
+[submodule "RIDetection"]
+	path = RIDetection
+	url = https://github.com/layzlee/RIDetection
