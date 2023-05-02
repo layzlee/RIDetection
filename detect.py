@@ -146,23 +146,23 @@ def run(
     curr_frames, prev_frames = [None] * bs, [None] * bs
     for frame_idx, batch in enumerate(dataset):
         path, im, im0s, vid_cap, s = batch
-        hl1 = 310 / 2661  # 监测区域高度距离图片顶部比例
-        wl1 = 437 / 1497  # 监测区域高度距离图片左部比例
-        hl2 = 2126 / 2661  # 监测区域高度距离图片顶部比例
-        wl2 = 437 / 1497  # 监测区域高度距离图片左部比例
-        hl3 = 2126 / 2661  # 监测区域高度距离图片顶部比例
-        wl3 = 1270 / 1497  # 监测区域高度距离图片左部比例
-        hl4 = 328 / 2661  # 监测区域高度距离图片顶部比例
-        wl4 = 1270 / 1497  # 监测区域高度距离图片左部比例
+        h1 =  X1/Px
+        w1 = Y1/ Py
+        h2 = X2 / Px
+        w2 = Y2 / Py
+        h3 = X3 / Px
+        w3 = Y3 / Py
+        h4 = X4 / Px
+        w4 =Y4 / Py
 
         if webcam:
             for b in range(0, im.shape[0]):
                 mask = np.zeros([im[b].shape[0], im[b].shape[2]], dtype=np.uint8)
                 # mask[round(img[b].shape[1] * hl1):img[b].shape[1], round(img[b].shape[2] * wl1):img[b].shape[2]] = 255
-                pts = np.array([[int(im[b].shape[2] * wl1), int(im[b].shape[1] * hl1)],  # pts1
-                                [int(im[b].shape[2] * wl2), int(im[b].shape[1] * hl2)],  # pts2
-                                [int(im[b].shape[2] * wl3), int(im[b].shape[1] * hl3)],  # pts3
-                                [int(im[b].shape[2] * wl4), int(im[b].shape[1] * hl4)]], np.int32)
+                pts = np.array([[int(im[b].shape[2] * w1), int(im[b].shape[1] * h1)],  # pts1
+                                [int(im[b].shape[2] * w2), int(im[b].shape[1] * h2)],  # pts2
+                                [int(im[b].shape[2] * w3), int(im[b].shape[1] * h3)],  # pts3
+                                [int(im[b].shape[2] * w4), int(im[b].shape[1] * h(4)]], np.int32)
                 mask = cv2.fillPoly(mask, [pts], (255, 255, 255))
                 imgc = im[b].transpose((1, 2, 0))
                 imgc = cv2.add(imgc, np.zeros(np.shape(imgc), dtype=np.uint8), mask=mask)
@@ -172,10 +172,10 @@ def run(
         else:
             mask = np.zeros([im.shape[1], im.shape[2]], dtype=np.uint8)
             # mask[round(im.shape[1] * hl1):im.shape[1], round(im.shape[2] * wl1):im.shape[2]] = 255
-            pts = np.array([[int(im.shape[2] * wl1), int(im.shape[1] * hl1)],  # pts1
-                            [int(im.shape[2] * wl2), int(im.shape[1] * hl2)],  # pts2
-                            [int(im.shape[2] * wl3), int(im.shape[1] * hl3)],  # pts3
-                            [int(im.shape[2] * wl4), int(im.shape[1] * hl4)]], np.int32)
+            pts = np.array([[int(im.shape[2] * w1), int(im.shape[1] * h1)],  # pts1
+                            [int(im.shape[2] * w2), int(im.shape[1] * h2)],  # pts2
+                            [int(im.shape[2] * w3), int(im.shape[1] * h3)],  # pts3
+                            [int(im.shape[2] * w4), int(im.shape[1] * h4)]], np.int32)
             mask = cv2.fillPoly(mask, [pts], (255, 255, 255))
             im = im.transpose((1, 2, 0))  # 一维二维互换
             x = np.zeros(np.shape(im), dtype=np.uint8)
@@ -214,10 +214,10 @@ def run(
                             cv2.FONT_HERSHEY_SIMPLEX,
                             1.0, (255, 255, 0), 2, cv2.LINE_AA)
 
-                pts = np.array([[int(im0s.shape[1] * wl1), int(im0s.shape[0] * hl1)],  # pts1
-                                [int(im0s.shape[1] * wl2), int(im0s.shape[0] * hl2)],  # pts2
-                                [int(im0s.shape[1] * wl3), int(im0s.shape[0] * hl3)],  # pts3
-                                [int(im0s.shape[1] * wl4), int(im0s.shape[0] * hl4)]], np.int32)  # pts4
+                pts = np.array([[int(im0s.shape[1] * w1), int(im0s.shape[0] * h1)],  # pts1
+                                [int(im0s.shape[1] * w2), int(im0s.shape[0] * h2)],  # pts2
+                                [int(im0s.shape[1] * w3), int(im0s.shape[0] * h3)],  # pts3
+                                [int(im0s.shape[1] * w4), int(im0s.shape[0] * h4)]], np.int32)  # pts4
                 # pts = pts.reshape((-1, 1, 2))
                 zeros = np.zeros((im0s.shape), dtype=np.uint8)
                 mask = cv2.fillPoly(zeros, [pts], color=(0, 165, 255))
@@ -229,10 +229,10 @@ def run(
                 cv2.putText(im0s, "Detection_Region", (int(im0s.shape[1] * wl1 - 5), int(im0s.shape[0] * hl1 - 5)),
                             cv2.FONT_HERSHEY_SIMPLEX,
                             1.0, (255, 255, 0), 2, cv2.LINE_AA)
-                pts = np.array([[int(im0s.shape[1] * wl1), int(im0s.shape[0] * hl1)],  # pts1
-                                [int(im0s.shape[1] * wl2), int(im0s.shape[0] * hl2)],  # pts2
-                                [int(im0s.shape[1] * wl3), int(im0s.shape[0] * hl3)],  # pts3
-                                [int(im0s.shape[1] * wl4), int(im0s.shape[0] * hl4)]], np.int32)  # pts4
+                pts = np.array([[int(im0s.shape[1] * w1), int(im0s.shape[0] * h1)],  # pts1
+                                [int(im0s.shape[1] * w2), int(im0s.shape[0] * h2)],  # pts2
+                                [int(im0s.shape[1] * w3), int(im0s.shape[0] * h3)],  # pts3
+                                [int(im0s.shape[1] * w4), int(im0s.shape[0] * h4)]], np.int32)  # pts4
                 # pts = pts.reshape((-1, 1, 2))
                 zeros = np.zeros((im0s.shape), dtype=np.uint8)
                 mask = cv2.fillPoly(zeros, [pts], color=(0, 165, 255))
